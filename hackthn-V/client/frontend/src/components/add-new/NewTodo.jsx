@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import useTaskStore from '../store/tasksStore';
 import toast from "react-hot-toast";
 
