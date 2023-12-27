@@ -27,14 +27,13 @@ const useTaskStore = create((set) => ({
   error: null,
   added: false,
   addTodo: async (newTodo, token) => {
-    console.log(token)
+    const authtoken = localStorage.getItem("token");
     try {
-      set({ isLoading: true, error: null }); 
-
+      set({ isLoading: true, error: null, added:false }); 
       const response = await fetch('http://localhost:8000/create-todo', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authtoken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newTodo),
@@ -52,11 +51,11 @@ const useTaskStore = create((set) => ({
           added: true
         });
       }else{
-        set({error: "Failed to add, Please try again!", isLoading:false});
+        set({error: "Failed to add, Please try again!", isLoading:false, added: false});
       }
     } catch (error) {
       console.error('Error adding todo:', error);
-      set({ isLoading: false, error: 'Failed to add todo' }); // Set error state
+      set({ isLoading: false, error: 'Failed to add todo', added: false }); // Set error state
     }
   },
   filteredTasks: [], 
@@ -141,7 +140,31 @@ const useTaskStore = create((set) => ({
     set({ loggedIn: false, });
     localStorage.removeItem('token');
   },
+  statusChanged: false,
+  errorChanged: false,
+  statusLoading: false,
+  changeStatus: async (id, status) => {
+    set({errorChanged:false,statusChanged:false,statusLoading: true})
+    try{
+      const token = localStorage.getItem("token");
+      const response = await fetch('http://localhost:8000/change-status', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, status }),
+      });
+      if (!response.ok) {
+        set({errorChanged:true,statusChanged:false,statusLoading: false})
+        throw new Error('Failed to update task status');
+      }
+      const data = await response.json();
+      set({errorChanged:false,statusChanged:true,statusLoading: false})
+    }catch (error){
+      set({errorChanged:false,statusChanged:false,statusLoading: false})
+    }
+  }
 }));
-
 
 export default useTaskStore;

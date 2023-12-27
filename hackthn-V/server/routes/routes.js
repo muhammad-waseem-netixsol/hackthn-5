@@ -6,7 +6,7 @@ const {protect} = require("../utility/check-auth.js");
 router.post("/sign-up", controller.signUp);
 router.post("/sign-in", controller.login);
 router.post("/create-todo", protect, controller.createTodo);
-router.post("/change-status", protect, controller.changeTodoStatus);
+router.put("/change-status", protect, controller.changeTodoStatus);
 router.get("/tasks", protect ,controller.getUserTasks);
 router.delete("/task/:id", protect, controller.deleteTask);
 

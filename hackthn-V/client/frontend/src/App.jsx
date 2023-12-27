@@ -8,12 +8,14 @@ import SignIn from './components/auth/Signin';
 import Navbar from './components/navbar/Navbar';
 import NewTodo from './components/add-new/NewTodo';
 import toast, { Toaster } from 'react-hot-toast';
+import Sidebar from './components/side-bar/Sidebar';
 
 function App() {
 
   return (
     <Router>
-    <div className='container mx-auto px-2 min-h-screen flex justify-start flex-col gap-10'>
+    <div className='container text-green-500 mx-auto px-2 min-h-screen flex justify-start flex-col gap-10'>
+      {/* <Sidebar /> */}
       <Toaster />
       <Navbar />
       <Routes>

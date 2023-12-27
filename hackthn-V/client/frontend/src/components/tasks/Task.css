@@ -2,9 +2,10 @@ tr{
     border-bottom: 1px solid gray;
     
 }
-tr td{
-    padding: 10px 0px;
+tr td, thead tr th{
+    padding: 20px 0px; 
+    margin: 0px 100px;
 }
 tr:nth-child(even){
-    background: #eeeeee;
+    background: #131212;
 }

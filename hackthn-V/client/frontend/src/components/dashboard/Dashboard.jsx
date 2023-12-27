@@ -1,6 +1,7 @@
 import React, {useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import useTaskStore from '../store/tasksStore';
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 const Dashboard = () => {
     const {fetchTasks, tasks} = useTaskStore();
@@ -22,17 +23,18 @@ const Dashboard = () => {
 
     return (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 min-h-full place-items-center'>
-         <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex flex-col justify-center items-center gap-3'>
+         <div className='h-[150px] w-full rounded-xl shadow-md border-2 border-green-500 flex flex-col justify-center items-center gap-3'>
             <div className='font-extrabold text-2xl'>{completed.length}</div>
             <div className='font-normal text-xl'>Completed</div>
          </div>
-         <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex flex-col justify-center items-center gap-3'>
+        
+         <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex border-green-500 flex-col justify-center items-center gap-3'>
          <div className='font-extrabold text-2xl'>{todo.length}</div>
-            <div className='font-normal text-xl'>Pending</div>
+            <div className='font-normal text-xl'>Todo</div>
          </div>
-         <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex flex-col justify-center items-center gap-3'>
+         <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex border-green-500 flex-col justify-center items-center gap-3'>
          <div className='font-extrabold text-2xl'>{pending.length}</div>
-            <div className='font-normal text-xl'>Going On</div>
+            <div className='font-normal text-xl'>Pendind</div>
          </div>
         </div>
     );

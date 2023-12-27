@@ -13,6 +13,10 @@ const todoSchema = new mongoose.Schema({
     type: String,
     default: false,
   },
+  dueDate: {
+    type: Date,
+    default: Date.now 
+  },
   status: {
     type: String,
     default: false,

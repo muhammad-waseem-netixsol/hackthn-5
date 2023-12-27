@@ -7,8 +7,13 @@ import "./Task.css"
 
 
 const Tasks = () => {
-    const {fetchTasks, tasks, filteredTasks} = useTaskStore();
-    const [alltask, setTasks] = useState([...tasks]);
+    const {fetchTasks, changeStatus, filteredTasks, statusChanged} = useTaskStore();
+    const [deleting, setDeleting] = useState(false);
+    const [status, setStatus] = useState({
+      text: "",
+      id: ""
+    });
+    const [effectStopper, setEffectStoper] = useState(false);
     const navigate = useNavigate();
     useEffect(()=> {
         const token = localStorage.getItem('token');
@@ -21,7 +26,23 @@ const Tasks = () => {
         }
          tasksfunc(); 
     }, [])
+    useEffect(()=> {
+      const changed = async ()=> {
+        if(effectStopper){
+          await changeStatus(status.id, status.text);
+
+          if(changeStatus){
+            toast.success("Todo status has been modified !")
+          }
+          await fetchTasks();
+          setEffectStoper(false);
+       }
+        
+      }
+       changed()
+    }, [status]);
     const onDeleteTask = async (id) => {
+      setDeleting(true);
         const token = localStorage.getItem("token");
         fetch("http://localhost:8000/task/"+id, {
             method: "DELETE",
@@ -29,27 +50,39 @@ const Tasks = () => {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
               },
-            
         }).then(res => {
             if(res.ok){
-                
                 toast.success("Task Deleted");
             }
+            return res.json()
+        }).then(final => {
+          fetchTasks();
+          setDeleting(false)
         }).catch(err => {
+          setDeleting(false);
             toast.error("error occurred");
         })
     };
-    return <div className="bg-card rounded-md p-5 md:w-[900px] sm:w-[90%] w-full mx-auto">
-        
+    const onChangeStatus = async (event, id) => {
+      console.log(id)
+      setStatus({
+        text: event.target.value,
+        id:id
+      });
+      setEffectStoper(true);
+    };
+    console.log(status)
+    return <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md p-5 lg:w-[900px] sm:w-[100%] w-full mx-auto">
     <Filter />
-    <table className="table-auto w-full my-5">
-  <thead>
-    <tr>
-      <th className="text-start font-medium">Title</th>
-      <th className="text-start font-medium">Priority</th>
-      <th className="text-start font-medium">Status</th>
-      <th className="text-start font-medium">Date</th>
-      <th className="text-start font-medium">Actions</th>
+    <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
+  <thead className="">
+    <tr className="">
+      <th  className="text-start font-medium max-w-[100px] min-w-[100px]">Title</th>
+      <th className="text-start font-medium max-w-[90px] min-w-[90px]">Priority</th>
+      <th className="text-start font-medium max-w-[110px] min-w-[110px]">Status</th>
+      <th className="text-start font-medium max-w-[160px] min-w-[160px]">Created</th>
+      <th className="text-start font-medium max-w-[160px] min-w-[160px]">Deadline</th>
+      <th className="text-center font-medium">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -63,12 +96,17 @@ const Tasks = () => {
         month: 'long',
         day: 'numeric',
       })}</td>
-      <td className="flex gap-2"><select className="outline-none bg-blue-500 cursor-pointer text-white">
+      <td>{new Date(task.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })}</td>
+      <td className="flex gap-2"><select value={task.status} onChange={()=>{onChangeStatus(event, task._id, )}} className="outline-none bg-blue-500 cursor-pointer text-white">
         <option value="TODO">TODO</option>
-        <option value="TODO">COMPLETED</option>
-        <option value="TODO">PENDING</option>
+        <option value="COMPLETED">COMPLETED</option>
+        <option value="PENDING">PENDING</option>
         </select>
-        <span><i onClick={()=> {onDeleteTask(task._id)}} className="fa-solid fa-trash text-red-400 cursor-pointer"></i></span>
+        <span className="mx-2">{deleting ? <i class="fa-solid fa-rotate-right text-red-500 animate-spin"></i> : <i onClick={()=> {onDeleteTask(task._id)}} className="fa-solid fa-trash text-red-400 cursor-pointer"></i>}</span>
         </td> 
     </tr>)}
     

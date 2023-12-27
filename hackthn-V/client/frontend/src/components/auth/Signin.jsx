@@ -40,11 +40,11 @@ const onSubmitHandler = async (event) => {
         <div className=''>
         <h1 className='text-center py-5'>Login</h1>
        <form className='max-w-[500px] flex gap-3 flex-col mx-auto' onSubmit={onSubmitHandler}>
-            <input className='outline-none border py-2 px-2 block w-full' type="text" placeholder='Enter email...' onChange={handleInputChange} value={user.email} name='email'/>
-            <input className='outline-none border py-2 px-2 block w-full' type="password" placeholder='Enter password...' onChange={handleInputChange} value={user.password} name='password'/>
-            <button  className='border w-full py-2 cursor-pointer hover:bg-slate-100 flex justify-center items-center gap-4' type="submit">SIGN IN {loginLoading && <i className="fa-solid fa-spinner animate-spin"></i>}</button>
+            <input className='outline-none bg-gray-800 py-2 px-2 block w-full' type="text" placeholder='Enter email...' onChange={handleInputChange} value={user.email} name='email'/>
+            <input className='outline-none bg-gray-800 py-2 px-2 block w-full' type="password" placeholder='Enter password...' onChange={handleInputChange} value={user.password} name='password'/>
+            <button  className='border w-full py-2 cursor-pointer hover:bg-green-500 hover:text-black flex justify-center items-center gap-4' type="submit">SIGN IN {loginLoading && <i className="fa-solid fa-spinner animate-spin"></i>}</button>
             <div className='flex justify-center items-center gap-5'><hr className='w-[60px]' />OR <hr className='w-[60px]' /></div>
-            <button  className='border w-full py-2 cursor-pointer hover:bg-slate-100 flex justify-center items-center gap-4' type="submit"><Link to={`/signup`}>SIGN UP</Link></button>
+            <button  className='border w-full py-2 cursor-pointer hover:bg-green-500 hover:text-black flex justify-center items-center gap-4' type="submit"><Link to={`/signup`}>SIGN UP</Link></button>
        </form>
     </div>
     );

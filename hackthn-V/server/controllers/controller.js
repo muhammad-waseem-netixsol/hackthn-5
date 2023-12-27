@@ -3,6 +3,7 @@ const Todo = require("../model/todo.js");
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const {ObjectId} = require("mongodb");
 // login route
  exports.login = async (req, res) => {
   try {
@@ -100,20 +101,24 @@ exports.createTodo = async (req, res) => {
 // change status
 
 exports.changeTodoStatus = async (req, res) => {
+  console.log("updating.....")
   try {
-    const { status } = req.body;
-    const { id } = req.params;
+    const { status, id } = req.body;
     const userId = req.user._id; 
-    const todo = await Todo.findOne({ _id: id, user: userId });
-
+    const uid = new ObjectId(id);
+    console.log(uid, status, userId)
+    const todo = await Todo.findOne({ _id: uid});
     if (!todo) {
       return res.status(404).json({ success: false, error: 'Todo not found' });
     }
-
+    const filter ={
+      _id:id
+    }
+    console.log(todo);
     // Update the todo status
     todo.status = status;
     await todo.save();
-
+    console.log(todo)
     res.status(200).json({ success: true, data: todo });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });

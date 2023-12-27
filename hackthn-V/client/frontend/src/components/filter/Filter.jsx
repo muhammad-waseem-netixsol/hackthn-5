@@ -16,11 +16,10 @@ const Filter = () => {
     console.log(filteredTasks)
     return (
         <>
-       
         <div className='grid grid-cols-1'>
             <div className='w-full'>
                 <label htmlFor="">Filter By Status</label>
-                <select value={value} onBlur={handleBlur} onChange={filterHandler} className='py-2 border w-full rounded outline-none cursor-pointer hover:bg-gray-200' name="" id="">
+                <select value={value} onBlur={handleBlur} onChange={filterHandler} className='py-2 w-full rounded outline-none cursor-pointer hover:bg-gray-900 bg-gray-800' name="" id="">
                     <option value="0">All</option>
                     <option value="TODO">To Be Done</option>
                     <option value="PENDING">Pending</option>
