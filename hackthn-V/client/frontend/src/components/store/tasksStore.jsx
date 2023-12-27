@@ -6,7 +6,7 @@ const useTaskStore = create((set) => ({
     try {
       // Get token from localStorage
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8000/tasks`, {
+      const response = await fetch(`https://backend-advance-todo.vercel.app/tasks`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const useTaskStore = create((set) => ({
     const authtoken = localStorage.getItem("token");
     try {
       set({ isLoading: true, error: null, added:false }); 
-      const response = await fetch('http://localhost:8000/create-todo', {
+      const response = await fetch('https://backend-advance-todo.vercel.app/create-todo', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${authtoken}`,
@@ -81,7 +81,7 @@ const useTaskStore = create((set) => ({
     console.log(userData)
     set({ signupLoading: true, signupError: null });
     try {
-      const response = await fetch('http://localhost:8000/sign-up',{
+      const response = await fetch('https://backend-advance-todo.vercel.app/sign-up',{
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const useTaskStore = create((set) => ({
     try {
       const userData = { email, password };
 
-      const response = await fetch('http://localhost:8000/sign-in', {
+      const response = await fetch('https://backend-advance-todo.vercel.app/sign-in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ const useTaskStore = create((set) => ({
     set({errorChanged:false,statusChanged:false,statusLoading: true})
     try{
       const token = localStorage.getItem("token");
-      const response = await fetch('http://localhost:8000/change-status', {
+      const response = await fetch('https://backend-advance-todo.vercel.app/change-status', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

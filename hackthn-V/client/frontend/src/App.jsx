@@ -8,7 +8,6 @@ import SignIn from './components/auth/Signin';
 import Navbar from './components/navbar/Navbar';
 import NewTodo from './components/add-new/NewTodo';
 import toast, { Toaster } from 'react-hot-toast';
-import Sidebar from './components/side-bar/Sidebar';
 
 function App() {
 
