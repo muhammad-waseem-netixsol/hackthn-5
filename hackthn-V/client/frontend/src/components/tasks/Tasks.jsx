@@ -54,7 +54,6 @@ const Tasks = () => {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
               },
-              mode: "no-cors"
         }).then(res => {
             return res.json()
         }).then(final => {
