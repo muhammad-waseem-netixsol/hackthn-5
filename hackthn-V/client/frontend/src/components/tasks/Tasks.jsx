@@ -55,14 +55,11 @@ const Tasks = () => {
               },
               mode: "no-cors"
         }).then(res => {
-            if(res.ok){
-                toast.success("Task Deleted");
-            }
             return res.json()
         }).then(final => {
-          fetchTasks();
-          setDeleting(false)
           toast.success("Task Deleted");
+          fetchTasks();
+          setDeleting(false);
         }).catch(err => {
           setDeleting(false);
             toast.error("error occurred");
