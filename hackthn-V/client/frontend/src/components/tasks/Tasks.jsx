@@ -85,7 +85,8 @@ const Tasks = () => {
     return <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md p-5 lg:w-[900px] sm:w-[100%] w-full mx-auto">
       <div className="flex justify-center py-3"><button onClick={onChangeView} className="py-2 block w-1/2 bg-green-500 outline-none border-none text-white rounded-lg">{view === "CARD" ? "TABULAR VIEW" : "CARDS VIEW"}</button></div>
     <Filter />
-    {view === "CARD" && filteredTasks.length > 0 && filteredTasks.map(task => <TaskCard task={task} onStatusChangeHandle={changeStatusCard} onDeleteFromCard={onDeleteTask}/>)}
+    <div className="rounded-md max-w-full sm:w-[100%] w-full mx-auto">
+    {view === "CARD" && filteredTasks.length > 0 && filteredTasks.map(task => <TaskCard task={task} key={task._id} onStatusChangeHandle={changeStatusCard} onDeleteFromCard={onDeleteTask}/>)}
    {view !== "CARD" && <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
   <thead className="">
     <tr className="">
@@ -117,6 +118,8 @@ const Tasks = () => {
   </tbody>
 </table>   }
 {filteredTasks.length === 0 && <h1 className="text-center w-full">No Todo....</h1>}   
+
+</div>
     </div>
 };
 

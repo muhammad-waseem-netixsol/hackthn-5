@@ -26,7 +26,7 @@ const TaskCard = (props) => {
         month: 'long',
         day: 'numeric',
       })}</span></div>
-            <div className="italic"> <i className="mr-5 fa-solid fa-trash text-red-400 cursor-pointer" onClick={()=>onDelete(props.task._id)}></i><i class="fa-solid fa-pen-to-square cursor-pointer"></i></div>
+            <div className="italic"> <i className="mr-5 fa-solid fa-trash text-red-400 cursor-pointer" onClick={()=>onDelete(props.task._id)}></i></div>
           </div>
       </div>
     );
