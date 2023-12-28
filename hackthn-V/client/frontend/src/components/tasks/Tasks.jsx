@@ -47,12 +47,13 @@ const Tasks = () => {
     const onDeleteTask = async (id) => {
       setDeleting(true);
         const token = localStorage.getItem("token");
-        fetch("http://localhost:8000/task/"+id, {
+        fetch("https://backend-advance-todo.vercel.app/task/"+id, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
               },
+              mode: "no-cors"
         }).then(res => {
             if(res.ok){
                 toast.success("Task Deleted");
