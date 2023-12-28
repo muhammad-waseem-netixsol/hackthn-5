@@ -45,6 +45,7 @@ const Tasks = () => {
        changed()
     }, [status]);
     const onDeleteTask = async (id) => {
+      console.log(id)
       setDeleting(true);
         const token = localStorage.getItem("token");
         fetch("https://backend-advance-todo.vercel.app/task/"+id, {
@@ -80,12 +81,15 @@ const Tasks = () => {
       console.log(e.target.value)
       await onChangeStatus(e, id)
     };
+    const onDeleteTaskHandle = async (id)=> {
+     await onDeleteTask(id);
+    }; 
     
     return <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md p-5 lg:w-[900px] sm:w-[100%] w-full mx-auto">
       <div className="flex justify-center py-3"><button onClick={onChangeView} className="py-2 block w-1/2 bg-green-500 outline-none border-none text-white rounded-lg">{view === "CARD" ? "TABULAR VIEW" : "CARDS VIEW"}</button></div>
     <Filter />
     <div className="rounded-md max-w-full sm:w-[100%] w-full mx-auto">
-    {view === "CARD" && filteredTasks.length > 0 && filteredTasks.map(task => <TaskCard task={task} key={task._id} onStatusChangeHandle={changeStatusCard} onDeleteFromCard={onDeleteTask}/>)}
+    {view === "CARD" && filteredTasks.length > 0 && filteredTasks.map(task => <TaskCard task={task} key={task._id} onStatusChangeHandle={changeStatusCard} onDeleteFromCard={onDeleteTaskHandle}/>)}
    {view !== "CARD" && <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
   <thead className="">
     <tr className="">
