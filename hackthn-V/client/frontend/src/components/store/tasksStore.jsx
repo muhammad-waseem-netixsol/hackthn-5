@@ -6,7 +6,7 @@ const useTaskStore = create((set) => ({
     try {
       // Get token from localStorage
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://backend-advance-todo.vercel.app/tasks`, {
+      const response = await fetch(`http://localhost:8000/tasks`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const useTaskStore = create((set) => ({
     const authtoken = localStorage.getItem("token");
     try {
       set({ isLoading: true, error: null, added:false }); 
-      const response = await fetch('https://backend-advance-todo.vercel.app/create-todo', {
+      const response = await fetch('http://localhost:8000/create-todo', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${authtoken}`,
@@ -79,9 +79,9 @@ const useTaskStore = create((set) => ({
   alreadyUser: false,
   signup: async (userData) => {
     console.log(userData)
-    set({ signupLoading: true, signupError: null });
+    set({ signupLoading: true, });
     try {
-      const response = await fetch('https://backend-advance-todo.vercel.app/sign-up',{
+      const response = await fetch('http://localhost:8000/sign-up',{
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const useTaskStore = create((set) => ({
       });
       console.log(response.status)
       if(response.status === 201){
-        set({ signupLoading: false, signupSuccess: true, alreadyUser: false  });
+        set({ signupLoading: false, signupSuccess: true,  });
       }else if(response.status === 409){
         set({ signupLoading: false, signupSuccess: false, alreadyUser: true  });
       }
@@ -105,12 +105,12 @@ const useTaskStore = create((set) => ({
   server:false,
   login: async (email, password) => {
     console.log("logging in => ", email, password)
-    set({ loginLoading: true, loginError: null,loggedIn: false, invalid: false });
+    set({ loginLoading: true, invalid: false });
 
     try {
       const userData = { email, password };
 
-      const response = await fetch('https://backend-advance-todo.vercel.app/sign-in', {
+      const response = await fetch('http://localhost:8000/sign-in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,24 +121,29 @@ const useTaskStore = create((set) => ({
       if (!response.ok) {
         throw new Error('Error logging in');
       }
-      if(response.status === 401){
-        set({ loginLoading: false, loginError: true, loggedIn: false, invalid: true,  });
-      }else if(response === 500){
-        set({ loginLoading: false, loginError: true, loggedIn: false, server: true, invalid:false  });
-      }else{
-        set({ loginLoading: false, loginError: false, loggedIn: true, server: false, invalid:false  });
-      }
       const { token } = await response.json();
       console.log("token => ", token)
       localStorage.setItem('token', token);
-      set({ loginLoading: false, loggedIn: true });
+      set({ loginLoading: false, loggedIn: true, invalid:false });
     } catch (error) {
-      set({ loginLoading: false, loginError: 'Invalid credentials', invalid:false });
+      set({ loginLoading: false, loginError: 'Invalid credentials', invalid:true });
     }
   },
   logout: () => {
     set({ loggedIn: false, });
     localStorage.removeItem('token');
+  },
+  orderItemsByPriority: (priority) => {
+    if(priority === "ALL"){
+      set((state) => ({
+        filteredTasks: state.tasks,
+      }))
+    }else{
+      set((state) => ({
+        filteredTasks: state.tasks.filter((task) => task.priority === priority),
+      }))
+    }
+  
   },
   statusChanged: false,
   errorChanged: false,
@@ -147,7 +152,7 @@ const useTaskStore = create((set) => ({
     set({errorChanged:false,statusChanged:false,statusLoading: true})
     try{
       const token = localStorage.getItem("token");
-      const response = await fetch('https://backend-advance-todo.vercel.app/change-status', {
+      const response = await fetch('http://localhost:8000/change-status', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -164,7 +169,8 @@ const useTaskStore = create((set) => ({
     }catch (error){
       set({errorChanged:false,statusChanged:false,statusLoading: false})
     }
-  }
+  },
+  
 }));
 
 export default useTaskStore;

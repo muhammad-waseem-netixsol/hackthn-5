@@ -11,13 +11,14 @@ const SignIn = () => {
         password: ""
     });
 useEffect(()=> {
-    if(invalid){
-         toast.error("Invalid credentials!")
+    if(invalid && !loginLoading){
+         toast.error(loginError)
     }
     if(loggedIn){
          navigate("/tasks");
     }
-},[loginError, server, invalid])
+},[loginError, server, invalid,loginLoading ])
+
 const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUser({

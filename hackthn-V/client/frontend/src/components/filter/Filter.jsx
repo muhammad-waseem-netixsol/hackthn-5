@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import useTaskStore from '../store/tasksStore';
+import Sort from './Sort';
 const Filter = () => {
-    const {filteredTasks, filterTasksByStatus} = useTaskStore();
+    const {filteredTasks, filterTasksByStatus, orderItemsByPriority} = useTaskStore();
     const [value, setValue] = useState("0");
     const filterHandler = (event) => {
         setValue(event.target.value);
@@ -14,6 +15,7 @@ const Filter = () => {
         console.log("blur")
     };
     console.log(filteredTasks)
+    
     return (
         <>
         <div className='grid grid-cols-1'>
@@ -26,6 +28,7 @@ const Filter = () => {
                     <option value="COMPLETED">Completed</option>
                 </select>
             </div>
+            <div className='w-full'><Sort /></div>
         </div>
         </>
     );

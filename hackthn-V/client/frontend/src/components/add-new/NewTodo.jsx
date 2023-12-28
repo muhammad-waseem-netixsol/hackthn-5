@@ -17,7 +17,7 @@ const NewTodo = () => {
         if(redirect){
             navigate("/tasks")
         }
-    },[error,isLoading, setRedirect])
+    },[error,isLoading, redirect])
     const [todo, setTodo] = useState({
         title: "",
         priority: "HIGH",
@@ -38,7 +38,7 @@ const NewTodo = () => {
         });
       };
       
-    const onAddTodo = async(event) => {
+    const onAddTodo = async (event) => {
         event.preventDefault();
         if(todo.title.trim() === "" || todo.priority.trim() === ""){
             return toast.error("Fields can not be empty!!")
@@ -48,16 +48,10 @@ const NewTodo = () => {
            priority: todo.priority,
            status: todo.status,
            tags, 
-           date: new Date(todo.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })  
+           date: new Date(todo.date).toDateString()  
         }, token)
-        // setRedirect(true)
-        if(added){
-            navigate("/tasks")
-        }
+        setRedirect(true)
+       
     };
     return (
         <div className=''>

@@ -3,12 +3,15 @@ import Filter from "../filter/Filter";
 import { useNavigate } from "react-router-dom";
 import useTaskStore from "../store/tasksStore";
 import toast from "react-hot-toast";
-import "./Task.css"
+import "./Task.css";
+import TaskCard from "./TaskCard";
+
 
 
 const Tasks = () => {
     const {fetchTasks, changeStatus, filteredTasks, statusChanged} = useTaskStore();
     const [deleting, setDeleting] = useState(false);
+    const [view, setView] = useState("TABLE");
     const [status, setStatus] = useState({
       text: "",
       id: ""
@@ -44,7 +47,7 @@ const Tasks = () => {
     const onDeleteTask = async (id) => {
       setDeleting(true);
         const token = localStorage.getItem("token");
-        fetch("https://backend-advance-todo.vercel.app/task/"+id, {
+        fetch("http://localhost:8000/task/"+id, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -71,10 +74,19 @@ const Tasks = () => {
       });
       setEffectStoper(true);
     };
-    console.log(status)
+    const onChangeView = () => {
+      setView(prev => prev === "CARD" ? "TABLE" : "CARD");
+    };
+    const changeStatusCard = async (e, id) => {
+      console.log(e.target.value)
+      await onChangeStatus(e, id)
+    };
+    
     return <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md p-5 lg:w-[900px] sm:w-[100%] w-full mx-auto">
+      <div className="flex justify-center py-3"><button onClick={onChangeView} className="py-2 block w-1/2 bg-green-500 outline-none border-none text-white rounded-lg">{view === "CARD" ? "TABULAR VIEW" : "CARDS VIEW"}</button></div>
     <Filter />
-    <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
+    {view === "CARD" && filteredTasks.length > 0 && filteredTasks.map(task => <TaskCard task={task} onStatusChangeHandle={changeStatusCard} onDeleteFromCard={onDeleteTask}/>)}
+   {view !== "CARD" && <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
   <thead className="">
     <tr className="">
       <th  className="text-start font-medium max-w-[100px] min-w-[100px]">Title</th>
@@ -86,21 +98,14 @@ const Tasks = () => {
     </tr>
   </thead>
   <tbody>
+    
 
- {filteredTasks.length > 0 && filteredTasks.map(task => <tr key={task._id}>
+ {filteredTasks.length > 0 && view !== "CARD" && filteredTasks.map(task => <tr key={task._id}>
      <td>{task.title}</td>
       <td>{task.priority}</td>
       <td>{task.status}</td>
-      <td>{new Date(task.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })}</td>
-      <td>{new Date(task.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })}</td>
+      <td>{task.date}</td>
+      <td>{task.dueDate}</td>
       <td className="flex gap-2"><select value={task.status} onChange={()=>{onChangeStatus(event, task._id, )}} className="outline-none bg-blue-500 cursor-pointer text-white">
         <option value="TODO">TODO</option>
         <option value="COMPLETED">COMPLETED</option>
@@ -109,11 +114,8 @@ const Tasks = () => {
         <span className="mx-2">{deleting ? <i class="fa-solid fa-rotate-right text-red-500 animate-spin"></i> : <i onClick={()=> {onDeleteTask(task._id)}} className="fa-solid fa-trash text-red-400 cursor-pointer"></i>}</span>
         </td> 
     </tr>)}
-    
-  
-
   </tbody>
-</table>  
+</table>   }
 {filteredTasks.length === 0 && <h1 className="text-center w-full">No Todo....</h1>}   
     </div>
 };

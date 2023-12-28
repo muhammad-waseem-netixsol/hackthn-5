@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const SignUp = () => {
     const navigate = useNavigate();
+    const [initialized, setInitialized] = useState(false);
     const {signupLoading,signupError,signupSuccess,signup, alreadyUser} = useTaskStore();
     const [user, setUser] = useState({
         name: "",
@@ -12,13 +13,20 @@ const SignUp = () => {
         password: ""
     });
 useEffect(()=> {
-    if(alreadyUser){
-         toast.error("email already exists")
-    }
-    if(signupSuccess){
-         navigate("/login");
-    }
-},[signupLoading,signupSuccess])
+    if (initialized) {
+        if(alreadyUser){
+            toast.error("email already exists");
+       }
+       if(signupSuccess){
+            navigate("/login");
+       }
+      } else {
+        setInitialized(true);
+      }
+        
+    
+    
+},[signupLoading, initialized])
 const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUser({
