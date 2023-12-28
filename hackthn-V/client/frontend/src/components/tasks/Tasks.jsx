@@ -62,6 +62,7 @@ const Tasks = () => {
         }).then(final => {
           fetchTasks();
           setDeleting(false)
+          toast.success("Task Deleted");
         }).catch(err => {
           setDeleting(false);
             toast.error("error occurred");
