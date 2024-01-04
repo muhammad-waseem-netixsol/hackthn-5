@@ -47,8 +47,6 @@ const NewTodo = () => {
         if(added){
             navigate("/");
         }
-       
-       
     };
     return (
         <div className=''>

@@ -12,7 +12,7 @@ const Tasks = () => {
   const auth = useContext(AuthContext);
   const { fetchTasks, changeStatus, filteredTasks, statusChanged } =
     useTaskStore();
-  const [deleting, setDeleting] = useState(false);
+
   const [view, setView] = useState("TABLE");
   const [status, setStatus] = useState({
     text: "",
@@ -30,7 +30,6 @@ const Tasks = () => {
     const changed = async () => {
       if (effectStopper) {
         await changeStatus(status.id, status.text);
-
         if (changeStatus) {
           toast.success("Todo status has been modified !");
         }
@@ -40,30 +39,7 @@ const Tasks = () => {
     };
     changed();
   }, [status]);
-  const onDeleteTask = async (id) => {
-    console.log(id);
-    setDeleting(true);
-
-    fetch("http://localhost:8000/task/" + id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((final) => {
-        toast.success("Task Deleted");
-        fetchTasks();
-        setDeleting(false);
-      })
-      .catch((err) => {
-        setDeleting(false);
-        toast.error("error occurred");
-      });
-  };
+  
   const onChangeStatus = async (event, id) => {
     console.log(id);
     setStatus({

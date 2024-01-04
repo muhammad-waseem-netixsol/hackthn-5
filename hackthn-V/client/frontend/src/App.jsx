@@ -54,8 +54,6 @@ useEffect(()=> {
   }
 },[login]);
 
-
-
   if(token){
     routes = (
       <React.Fragment>

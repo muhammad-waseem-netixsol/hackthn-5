@@ -5,7 +5,7 @@ const useTaskStore = create((set) => ({
     try {
       // Get token from localStorage
       const token = JSON.parse(localStorage.getItem('user'));
-      const response = await fetch(`http://localhost:8000/tasks`, {
+      const response = await fetch(`https://backend-advance-todo.vercel.app/tasks`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token.token}`,
@@ -29,7 +29,7 @@ const useTaskStore = create((set) => ({
   addTodo: async (newTodo, token) => {
     try {
       set({ isLoading: true, error: null, added:false }); 
-      const response = await fetch('http://localhost:8000/create-todo', {
+      const response = await fetch('https://backend-advance-todo.vercel.app/create-todo', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

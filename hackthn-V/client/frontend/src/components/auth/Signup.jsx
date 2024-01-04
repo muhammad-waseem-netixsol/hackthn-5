@@ -25,7 +25,7 @@ const onSubmitHandler = async (event) => {
         return toast.error("Fields can not be empty!!");
     };
     setLoading(true);
-    const data = await fetch('http://localhost:8000/sign-up',{
+    const data = await fetch('https://backend-advance-todo.vercel.app/sign-up',{
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
