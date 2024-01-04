@@ -9,6 +9,6 @@ router.post("/create-todo", protect, controller.createTodo);
 router.put("/change-status", protect, controller.changeTodoStatus);
 router.get("/tasks", protect ,controller.getUserTasks);
 router.delete("/task/:id", protect, controller.deleteTask);
-
+router.post("/comment", controller.addComment);
 
 module.exports = router;

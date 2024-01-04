@@ -1,23 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import useTaskStore from '../store/tasksStore';
 import toast from "react-hot-toast";
+import { AuthContext } from '../../context/context';
 
 
 const NewTodo = () => {
     const navigate = useNavigate();
+    const auth = useContext(AuthContext);
     const [redirect, setRedirect] = useState(false);
     const {isLoading, error, addTodo, added} = useTaskStore();
-    let token;
-    useEffect(()=> {
-        token = localStorage.getItem("token");
-        if(!token){
-            navigate("/login");
-        }
-        if(redirect){
-            navigate("/tasks")
-        }
-    },[error,isLoading, redirect])
+
+
     const [todo, setTodo] = useState({
         title: "",
         priority: "HIGH",
@@ -49,8 +43,11 @@ const NewTodo = () => {
            status: todo.status,
            tags, 
            date: new Date(todo.date).toDateString()  
-        }, token)
-        setRedirect(true)
+        }, auth.token);
+        if(added){
+            navigate("/");
+        }
+       
        
     };
     return (

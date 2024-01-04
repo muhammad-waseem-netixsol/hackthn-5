@@ -7,11 +7,6 @@ const Dashboard = () => {
     const {fetchTasks, tasks} = useTaskStore();
     const navigate = useNavigate();
     useEffect(()=> {
-        const token = localStorage.getItem('token');
-        console.log('Token:', token);
-        if(!token){
-            navigate("/login");
-        }
         const tasksfunc = async () =>{
             fetchTasks();
         }
@@ -34,7 +29,7 @@ const Dashboard = () => {
          </div>
          <div className='h-[150px] w-full rounded-xl shadow-md border-2 flex border-green-500 flex-col justify-center items-center gap-3'>
          <div className='font-extrabold text-2xl'>{pending.length}</div>
-            <div className='font-normal text-xl'>Pendind</div>
+            <div className='font-normal text-xl'>Pending</div>
          </div>
         </div>
     );

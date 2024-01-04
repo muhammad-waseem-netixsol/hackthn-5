@@ -14,8 +14,8 @@ const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, "for-now-there-is-no-secret");
-    console.log(decoded)
-    req.user = await User.findById(decoded.id).select('-password'); 
+    console.log("token = > ", decoded);
+    req.user = await User.findById(decoded.user._id).select('-password'); 
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Not authorized - Invalid token' });

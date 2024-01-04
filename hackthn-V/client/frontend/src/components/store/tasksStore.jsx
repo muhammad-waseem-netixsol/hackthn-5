@@ -1,15 +1,14 @@
 import {create} from 'zustand';
-
 const useTaskStore = create((set) => ({
   tasks: [],
   fetchTasks: async () => {
     try {
       // Get token from localStorage
-      const token = localStorage.getItem('token');
-      const response = await fetch(`https://backend-advance-todo.vercel.app/tasks`, {
+      const token = JSON.parse(localStorage.getItem('user'));
+      const response = await fetch(`http://localhost:8000/tasks`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token.token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -17,6 +16,7 @@ const useTaskStore = create((set) => ({
         throw new Error('Failed to fetch tasks');
       }
       const fetchedTasks = await response.json();
+      console.log(fetchedTasks)
       set({tasks: fetchedTasks.data, filteredTasks: fetchedTasks.data});
     } catch (error) {
       console.error('Error fetching tasks:', error.message);
@@ -27,13 +27,12 @@ const useTaskStore = create((set) => ({
   error: null,
   added: false,
   addTodo: async (newTodo, token) => {
-    const authtoken = localStorage.getItem("token");
     try {
       set({ isLoading: true, error: null, added:false }); 
-      const response = await fetch('https://backend-advance-todo.vercel.app/create-todo', {
+      const response = await fetch('http://localhost:8000/create-todo', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${authtoken}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newTodo),
@@ -44,6 +43,7 @@ const useTaskStore = create((set) => ({
       }
       if(response.status === 201){
         const addedTodo = await response.json();
+        
         set({
           todos: [addedTodo],
           isLoading: false,
