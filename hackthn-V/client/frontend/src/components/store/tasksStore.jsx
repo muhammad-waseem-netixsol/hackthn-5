@@ -148,17 +148,17 @@ const useTaskStore = create((set) => ({
   statusChanged: false,
   errorChanged: false,
   statusLoading: false,
-  changeStatus: async (id, status) => {
+  changeStatus: async (todo, token) => {
     set({errorChanged:false,statusChanged:false,statusLoading: true})
     try{
-      const token = localStorage.getItem("token");
+     
       const response = await fetch('https://backend-advance-todo.vercel.app/change-status', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, status }),
+        body: JSON.stringify({ id: todo.id, status: todo.text }),
       });
       if (!response.ok) {
         set({errorChanged:true,statusChanged:false,statusLoading: false})

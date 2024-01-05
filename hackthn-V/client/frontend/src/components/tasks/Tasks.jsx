@@ -29,7 +29,10 @@ const Tasks = () => {
   useEffect(() => {
     const changed = async () => {
       if (effectStopper) {
-        await changeStatus(status.id, status.text);
+        await changeStatus({
+          text: status.text,
+          id: status.id
+        }, auth.token);
         if (changeStatus) {
           toast.success("Todo status has been modified !");
         }
@@ -41,7 +44,7 @@ const Tasks = () => {
   }, [status]);
   
   const onChangeStatus = async (event, id) => {
-    console.log(id);
+    console.log(id, event);
     setStatus({
       text: event,
       id: id,
@@ -52,7 +55,7 @@ const Tasks = () => {
     setView((prev) => (prev === "CARD" ? "TABLE" : "CARD"));
   };
   const changeStatusCard = async (e, id) => {
-    console.log(e.target.value);
+
     await onChangeStatus(e, id);
   };
   const onDeleteTaskHandle = async (id) => {

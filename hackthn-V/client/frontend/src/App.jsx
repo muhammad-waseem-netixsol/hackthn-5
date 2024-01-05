@@ -9,6 +9,8 @@ import Navbar from './components/navbar/Navbar';
 import NewTodo from './components/add-new/NewTodo';
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from './context/context';
+import TodoList from './components/tasks/TodoList';
+
 
 let logoutTimer;
 
@@ -58,6 +60,7 @@ useEffect(()=> {
     routes = (
       <React.Fragment>
       <Route path="/" element={<Dashboard />} />
+      <Route path="/list" element={<TodoList />} />
       <Route path="/add" element={<NewTodo />} />
       <Route path="/tasks" element={<Tasks />} />
       <Route

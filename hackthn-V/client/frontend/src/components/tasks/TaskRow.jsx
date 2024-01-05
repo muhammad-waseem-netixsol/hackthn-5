@@ -42,7 +42,7 @@ function TaskRow(props) {
         <select
           value={props.task.status}
           onChange={() => {
-            onChangeStatus(event, task._id);
+            onChangeStatus(event, props.task._id);
           }}
           className="outline-none bg-blue-500 cursor-pointer text-white"
         >
