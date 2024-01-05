@@ -65,7 +65,7 @@ useEffect(()=> {
       <Route path="/tasks" element={<Tasks />} />
       <Route
         path="*"
-        element={<Navigate to="/list" replace />}
+        element={<Navigate to="/" replace />}
     />
       </React.Fragment>
     )

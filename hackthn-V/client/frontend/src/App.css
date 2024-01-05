@@ -3,10 +3,12 @@ body{
   font-family: 'Poppins', sans-serif  !important;
   background: #050100;
   cursor: url("./assets/icons8-cursor-20.png"), auto;
+  overflow-x: hidden;
 }
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+ 
 }
 
 /* Track */
@@ -17,4 +19,5 @@ body{
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #088b03;
+  height: 20px;
 }

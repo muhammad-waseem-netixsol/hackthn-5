@@ -9,3 +9,9 @@ tr td, thead tr th{
 tr:nth-child(even){
     background: #131212;
 }
+
+table{
+    border-bottom: 3px solid green !important;
+    border-top: 3px solid green !important;
+    padding: 10px;
+}

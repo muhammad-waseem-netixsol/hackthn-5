@@ -63,7 +63,7 @@ const Tasks = () => {
   };
 
   return (
-    <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md p-5 lg:w-[900px] sm:w-[100%] w-full mx-auto">
+    <div className="bg-card overflow-x-scroll sm:overflow-x-hidden rounded-md lg:w-[900px] sm:w-[100%] w-full mx-auto">
       <div className="flex justify-center py-3">
         <button
           onClick={onChangeView}
@@ -85,25 +85,25 @@ const Tasks = () => {
             />
           ))}
         {view !== "CARD" && (
-          <table className="table-auto border-separate w-full my-5 overflow-x-scroll">
+          <table className="table-auto border-separate my-5">
             <thead className="">
               <tr className="">
                 <th className="text-start font-medium max-w-[100px] min-w-[100px]">
                   Title
                 </th>
-                <th className="text-start font-medium max-w-[90px] min-w-[90px]">
+                <th className="text-start font-medium max-w-[80px] min-w-[80px]">
                   Priority
                 </th>
                 <th className="text-start font-medium max-w-[110px] min-w-[110px]">
                   Status
                 </th>
-                <th className="text-start font-medium max-w-[160px] min-w-[160px]">
+                <th className="text-start font-medium max-w-[100px] min-w-[100px]">
                   Created
                 </th>
-                <th className="text-start font-medium max-w-[160px] min-w-[160px]">
+                <th className="text-start font-medium max-w-[100px] min-w-[100px]">
                   Deadline
                 </th>
-                <th className="text-center font-medium">Actions</th>
+                <th className="text-center font-medium max-w-[100px] min-w-[100px] ">Actions</th>
               </tr>
             </thead>
             <tbody>
