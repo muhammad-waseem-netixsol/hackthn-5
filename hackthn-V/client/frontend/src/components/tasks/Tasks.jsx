@@ -10,6 +10,7 @@ import TaskRow from "./TaskRow";
 
 const Tasks = () => {
   const auth = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const { fetchTasks, changeStatus, filteredTasks, statusChanged } =
     useTaskStore();
 

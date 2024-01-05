@@ -58,7 +58,7 @@ var duedate= (dueDate.getMonth() + 1) + '/' + dueDate.getDate() + '/' +  dueDate
       <td>{newdate}</td>
       <td>{duedate}</td>
       <td className="flex gap-2">
-      <i onClick={handleDownloadPDF} className={`fa-solid fa-download cursor-pointer ${props.task.status === "COMPLETED" && "textg-gray-500"} ${props.task.status === "PENDING" && "text-orange-500"} ${props.task.status === "TODO" && "text-blue-500"}`}></i>
+      <i onClick={handleDownloadPDF} className={`mx-2 fa-solid fa-download cursor-pointer ${props.task.status === "COMPLETED" && "text-gray-500"} ${props.task.status === "PENDING" && "text-orange-500"} ${props.task.status === "TODO" && "text-blue-500"}`}></i>
         <select
           value={props.task.status}
           onChange={() => {

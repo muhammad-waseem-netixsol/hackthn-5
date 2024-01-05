@@ -13,7 +13,7 @@ const Sort = (props) => {
         <div className='my-5'>
         <div>Filter by priority</div>
         <div className='rounded-lg text-end flex justify-between items-center'>
-            <select value={priority} onChange={onFilterByPriority} name="priority" id="" className='w-full cursor-pointer bg-gray-950 rounded-lg py-2 outline-none'>
+            <select value={priority} onChange={onFilterByPriority} name="priority" id="" className='w-full cursor-pointer bg-gray-800 hover:bg-gray-900 rounded-lg py-2 outline-none'>
                 <option value="ALL">All</option>
                 <option value="HIGH">HIGH</option>
                 <option value="LOW">LOW</option>
