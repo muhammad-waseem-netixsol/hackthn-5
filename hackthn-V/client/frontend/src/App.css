@@ -2,6 +2,7 @@
 body{
   font-family: 'Poppins', sans-serif  !important;
   background: #050100;
+  cursor: url("./assets/icons8-cursor-20.png"), auto;
 }
 /* width */
 ::-webkit-scrollbar {
