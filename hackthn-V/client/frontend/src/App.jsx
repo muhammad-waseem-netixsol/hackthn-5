@@ -69,11 +69,11 @@ useEffect(()=> {
   }else{
     routes = (
       <React.Fragment>
-      <Route path="/login" element={<SignIn />} />
+      <Route path="/" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route
         path="*"
-        element={<Navigate to="/login" replace />}
+        element={<Navigate to="/" replace />}
     />
       </React.Fragment>
     )
