@@ -28,6 +28,9 @@ function TaskRow(props) {
         toast.error("error occurred");
       });
   };
+  const onChangeStatus = (e, id) => {
+    props.onChangeStatusTodo(e.target.value, id);
+  };
   return (
     <tr key={props.task._id}>
       <td>{props.task.title}</td>

@@ -43,7 +43,7 @@ const Tasks = () => {
   const onChangeStatus = async (event, id) => {
     console.log(id);
     setStatus({
-      text: event.target.value,
+      text: event,
       id: id,
     });
     setEffectStoper(true);
@@ -107,7 +107,7 @@ const Tasks = () => {
               {filteredTasks.length > 0 &&
                 view !== "CARD" &&
                 filteredTasks.map((task) => (
-                  <TaskRow task={task}/>
+                  <TaskRow task={task} onChangeStatusTodo={onChangeStatus}/>
                 ))}
             </tbody>
           </table>
