@@ -44,9 +44,9 @@ const NewTodo = () => {
            tags, 
            date: new Date(todo.date).toDateString()  
         }, auth.token);
-        if(added){
+     
             navigate("/");
-        }
+   
     };
     return (
         <div className=''>
